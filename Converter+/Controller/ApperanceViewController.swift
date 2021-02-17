@@ -16,6 +16,7 @@ class ApperanceViewController: UIViewController {
     @IBOutlet weak var LightSwitch: UISwitch!
     
     let window = UIApplication.shared.keyWindow
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,19 +36,23 @@ class ApperanceViewController: UIViewController {
             }
         }
         
-    @IBAction func DarkAction(_ sender: Any) {
+    @IBAction func DarkAction(_ sender: UISwitch) {
         
         DarkSwitch.isOn = true
         LightSwitch.isOn = false
         window?.overrideUserInterfaceStyle = .dark
+        defaults.set(sender.isOn, forKey: "DarkSwitch")
+        defaults.removeObject(forKey: "LightSwitch")
         
     }
     
-    @IBAction func LightAction(_ sender: Any) {
+    @IBAction func LightAction(_ sender: UISwitch) {
         
         DarkSwitch.isOn = false
         LightSwitch.isOn = true
         window?.overrideUserInterfaceStyle = .light
+        defaults.set(sender.isOn, forKey: "LightSwitch")
+        defaults.removeObject(forKey: "DarkSwitch")
         
     }
     
